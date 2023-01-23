@@ -1,3 +1,5 @@
+# dat2csv
+
 Algorithm:
 
 Read the file as String. String is a vector of bytes in UTF-8. Chars is an iterable over char representation of these bytes.
