@@ -9,6 +9,7 @@ use std::io::{BufRead, BufReader};
 use std::process;
 use std::str;
 
+// main function
 fn main() {
     if let Err(err) = run() {
         println!("{}", err);
@@ -228,24 +229,7 @@ fn extract_data(s: &str, code_hash: &HashMap<&str, char>) -> Result<String, Box<
     let fld_separator: char = ',';
     let mut idx_a = 10;
     let mut idx_b = 10;
-    let mut idx_p = 10;
-
-    // flags for next read
-    let mut read_data = false; // read data until closing )
-    let mut read_code = false; // read code until closing )
-    let mut part_code = false; // signal possible partial code read B(XX).
-
-    let mut escape = 0;
-    let mut code = String::new();
-    let mut bcode_tracker = String::new();
-    let mut closure = false;
-
-    // Parses the s String char by char and copy it to data_list String
-    for (i, c) in s.chars().enumerate() {
-        // A closure is a closing block parenthesis. Make sure a escape doesn't precede it.
-        if c == ')' && escape + 1 != i {
-            closure = true;
-        }
+    let mut idx_p = 10;CC6B5DAE3D11F4BE
         // read_data flag true when the sequence A( is identified
         if read_data && !closure {
             data_list.push(c);
