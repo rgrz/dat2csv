@@ -1,16 +1,35 @@
 # dat2csv
 
-Algorithm:
+dat2csv is a command line utility written in Rust that takes a data file generated with Data Mover (Oracle PeopleSoft) and generates one csv per each DB table/record that the .dat file contains.
 
-Read the file as String. String is a vector of bytes in UTF-8. Chars is an iterable over char representation of these bytes.
-Find all EXPORT <table> locations. Find all Fields Definition location. Find Save them for later iteration. Work with slices of the String for each table.
+The main goal of this program was to learn Rust.
+
+Usage:
+======
+rust run <name_of_the_data_file>
+
+e.g. rust run example.dat
+
+Expected output:
+================
+A csv file for each PeopleSoft Record/DB Table in the .dat file
+
+Notes to the Program Logic:
+==========================
+Read the dat file as String. 
+String is a vector of bytes in UTF-8. 
+Chars is an iterable over char representation of these bytes.
+Find all EXPORT <table> locations. 
+Find all Fields Definition location. 
+Find Save them for later iteration. 
+Work with slices of the String for each table.
 Based on slash structure, get Field Structure, and then the data. 
 To parse each string, iterate throw chars with receipes from https://wduquette.github.io/parsing-strings-into-slices/
-
 Line by Line may not the best approach. Try it anyway.
 
 
-PeopleTools Data
+PeopleTools Data Analysis:
+==========================
 SET VERSION_DAM  8.5:1:0
       
 SET ENDIAN LE
@@ -18,9 +37,9 @@ SET BASE_LANGUAGE ENG
 REM Database: PENGD
 REM Started: Mon Apr 25 21:15:03 2022
 
-Encontrar Tabla
-Primer Export son Tablespces
-A Partir del segundo EXPORT son tablas
+Find Table
+First Export are Tablespaces
+From Second EXPORT onward will be PS DB tables
 
 EXPORT <Tabla>.PS_<Tabla> <Query>
 <query 2>
@@ -50,17 +69,35 @@ A(RG_SUBTYPE_DN_BRANCH#RDOFI),A(S0002020),A(N),A(N),A(Y),A(N),A(00011)
 A(300_ESP),A(00000639),A(Y),
 //
 
-Encontrar Campos
-1) Campo y tipo dato separado por :
-2) Separados por ~~~
+Fields
+1) Field and data type separated with colons <:>
+2) Separated with <~~~>
 
-Datos
+Actual Data
 A(),
-Termina con ,
+Ends with comma <,>
 
 
-
-The BufReader<R> struct adds buffering to any reader.
-It can be excessively inefficient to work directly with a Read instance. For example, every call to read on TcpStream results in a system call. A BufReader<R> performs large, infrequent reads on the underlying Read and maintains an in-memory buffer of the results.
-BufReader<R> can improve the speed of programs that make small and repeated read calls to the same file or network socket. It does not help when reading very large amounts at once, or reading just one or a few times. It also provides no advantage when reading from a source that is already in memory, like a Vec<u8>.
-When the BufReader<R> is dropped, the contents of its buffer will be discarded. Creating multiple instances of a BufReader<R> on the same stream can cause data loss. Reading from the underlying reader after unwrapping the BufReader<R> with BufReader::into_inner can also cause data loss.
+iso8859 is a generated .dat containing codes for utf8 special values
+ps_codes: 
+        "\"", r"\(", r"\)", "FL", "\\", "FN", "~", "OCICKM", "MCLP", "MCLP", "MCLP", "MCLP",
+        "MCLP", "MCLP", "MCLP", "MCLP", "MFKA", "MCLP", "MFJC", "MFLN", "`", "MCLP", "MCLP",
+        "MCLP", "MCLP", "MCLP", "MCLP", "MCLP", "MFKB", "MCLP", "MFJD", "MFLO", "MFLI", "MCKB",
+        "MCKC", "MCKD", "MCLP", "MCKF", "MCLP", "MCKH", "MCLP", "MCKJ", "MCKK", "MCKL", "MCKM",
+        "MCKN", "MCKO", "MCKP", "MCLA", "MCLB", "MCLC", "MCLD", "MCLP", "MCLF", "MCLG", "MCLH",
+        "MCLP", "MCLJ", "MCLK", "MCLL", "MCLP", "MCLP", "MCLP", "MCLP", "MDIA", "MDIB", "MDIC",
+        "MDID", "MDIE", "MDIF", "MDIG", "MDIH", "MDII", "MDIJ", "MDIK", "MDIL", "MDIM", "MDIN",
+        "MDIO", "MDIP", "MDJA", "MDJB", "MDJC", "MDJD", "MDJE", "MDJF", "MDJG", "MDJH", "MDJI",
+        "MDJJ", "MDJK", "MDJL", "MDJM", "MDJN", "MDJO", "MDJP", "MDKA", "MDKB", "MDKC", "MDKD",
+        "MDKE", "MDKF", "MDKG", "MDKH", "MDKI", "MDKJ", "MDKK", "MDKL", "MDKM", "MDKN", "MDKO",
+        "MDKP", "MDLA", "MDLB", "MDLC", "MDLD", "MDLE", "MDLF", "MDLG", "MDLH", "MDLI", "MDLJ",
+        "MDLK", "MDLL", "MDLM", "MDLN", "MDLO", "MDLP",
+iso_list: 
+        '"', '(', ')', '[', '\\', ']', '~', '€', '‚', 'ƒ', '„', '…', '†', '‡', 'ˆ', '‰', 'Š', '‹',
+        'Œ', 'Ž', '‘', '’', '“', '”', '•', '–', '—', '™', 'š', '›', 'œ', 'ž', 'Ÿ', '¡', '¢', '£',
+        '¤', '¥', '¦', '§', '¨', '©', 'ª', '«', '¬', '­', '®', '¯', '°', '±', '²', '³', '´', 'µ',
+        '¶', '·', '¸', '¹', 'º', '»', '¼', '½', '¾', '¿', 'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç',
+        'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', '×', 'Ø', 'Ù',
+        'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë',
+        'ì', 'í', 'î', 'ï', 'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', '÷', 'ø', 'ù', 'ú', 'û', 'ü', 'ý',
+        'þ', 'ÿ',
