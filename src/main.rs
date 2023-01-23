@@ -229,7 +229,7 @@ fn extract_data(s: &str, code_hash: &HashMap<&str, char>) -> Result<String, Box<
     let fld_separator: char = ',';
     let mut idx_a = 10;
     let mut idx_b = 10;
-    let mut idx_p = 10;CC6B5DAE3D11F4BE
+    let mut idx_p = 10;
         // read_data flag true when the sequence A( is identified
         if read_data && !closure {
             data_list.push(c);
