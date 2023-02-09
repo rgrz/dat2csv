@@ -1,8 +1,6 @@
 use regex::Regex;
 use std::collections::HashMap;
-use std::env;
 use std::error::Error;
-use std::ffi::OsString;
 use std::fs::File;
 use std::io::Write;
 use std::io::{BufRead, BufReader};
@@ -10,13 +8,6 @@ use std::process;
 
 use std::str;
 
-// First argument should be the dat file to parse
-fn get_dat_filename() -> Result<OsString, Box<dyn Error>> {
-    match env::args_os().nth(1) {
-        None => Err(From::from("expected 1 argument, but got none")),
-        Some(file_path) => Ok(file_path),
-    }
-}
 
 // fn parse_config(args: &[String]) -> &str {
 //     let file_path = &args[1];
@@ -30,11 +21,7 @@ pub fn run() -> Result<(), Box<dyn Error>> {
 
     // let file_path = parse_config(&args);
 
-    // let file_path = get_datfile()?;
-    // let file = File::open(file_path)?;
-    // let reader = BufReader::new(file);
-
-    let file_path = get_dat_filename()?;
+    let file_path = dat2csv::get_dat_filename()?;
     let file = File::open(file_path)?;
     let reader = BufReader::new(file);
 
