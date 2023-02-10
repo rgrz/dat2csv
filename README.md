@@ -43,7 +43,7 @@ A csv file for each PeopleSoft Record/DB Table in the .dat file
 
 See in /assets/Example.dat how a data file is structured. EXPORT keyboard indicates the DB Table/Record, and lines beginning with slashes mark the different Field block and Data blocks.
 
-EXPORT <Table>.PS_<Tabla> <Query>
+EXPORT \<Table\>.PS_<\Table\> \<Query\>
 <query 2>
 /
 B(AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA)
@@ -79,4 +79,4 @@ Actual Data
 A(),
 Ends with comma <,>
 
-iso8859.dat is a generated .dat containing ps codes corresponding to utf8 special values.
+iso8859.dat is a generated .dat containing ps codes corresponding to utf8 special values.	
