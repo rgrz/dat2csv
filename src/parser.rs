@@ -33,7 +33,7 @@ pub fn run() -> Result<(), Box<dyn Error>> {
 
     let mut current_record = String::from("None");
     let mut record_fields = String::new();
-    let mut data_line = String::new();
+    let mut data_row = String::new();
     let mut csv_data: String; 
     let mut csv_header: String; 
 
@@ -121,13 +121,13 @@ pub fn run() -> Result<(), Box<dyn Error>> {
                     whole_data_line.push_str(&line);
                 } else {
                     // when a double slash is found, extract data and reference move to data_line.
-                    data_line
+                    data_row
                         .push_str(extract_data(&whole_data_line, &code_hash).unwrap().as_str());
                     whole_data_line = String::new();
                 
                     // when we find a // we start a new csvline
-                    data_line.pop(); // delete last comma
-                    data_line.push_str("\n"); // add newline at the end of each data row
+                    data_row.pop(); // delete last comma
+                    data_row.push_str("\n"); // add newline at the end of each data row
                     data_count += 1;
                 }
             }
@@ -136,7 +136,7 @@ pub fn run() -> Result<(), Box<dyn Error>> {
                 file_name = current_record.clone();
                 file_name.push_str(".csv");
 
-                csv_data = data_line.clone();
+                csv_data = data_row.clone();
                 csv_header = record_fields.clone();
                 // join header and data
                 csv_header.push_str(&csv_data);
@@ -150,12 +150,47 @@ pub fn run() -> Result<(), Box<dyn Error>> {
                 slash_count = 0;
                 data_count = 0;
                 record_fields = String::from("");
-                data_line = String::from("");
+                data_row = String::from("");
             }
         }
     }
     // Create a json file
     Ok(())
+}
+
+fn build_data_code_hash() -> HashMap<&'static str, char> {
+    let ps_codes: Vec<&'static str> = vec![
+        "\"", r"\(", r"\)", "FL", "\\", "FN", "~", "OCICKM", "MCLP", "MCLP", "MCLP", "MCLP",
+        "MCLP", "MCLP", "MCLP", "MCLP", "MFKA", "MCLP", "MFJC", "MFLN", "`", "MCLP", "MCLP",
+        "MCLP", "MCLP", "MCLP", "MCLP", "MCLP", "MFKB", "MCLP", "MFJD", "MFLO", "MFLI", "MCKB",
+        "MCKC", "MCKD", "MCLP", "MCKF", "MCLP", "MCKH", "MCLP", "MCKJ", "MCKK", "MCKL", "MCKM",
+        "MCKN", "MCKO", "MCKP", "MCLA", "MCLB", "MCLC", "MCLD", "MCLP", "MCLF", "MCLG", "MCLH",
+        "MCLP", "MCLJ", "MCLK", "MCLL", "MCLP", "MCLP", "MCLP", "MCLP", "MDIA", "MDIB", "MDIC",
+        "MDID", "MDIE", "MDIF", "MDIG", "MDIH", "MDII", "MDIJ", "MDIK", "MDIL", "MDIM", "MDIN",
+        "MDIO", "MDIP", "MDJA", "MDJB", "MDJC", "MDJD", "MDJE", "MDJF", "MDJG", "MDJH", "MDJI",
+        "MDJJ", "MDJK", "MDJL", "MDJM", "MDJN", "MDJO", "MDJP", "MDKA", "MDKB", "MDKC", "MDKD",
+        "MDKE", "MDKF", "MDKG", "MDKH", "MDKI", "MDKJ", "MDKK", "MDKL", "MDKM", "MDKN", "MDKO",
+        "MDKP", "MDLA", "MDLB", "MDLC", "MDLD", "MDLE", "MDLF", "MDLG", "MDLH", "MDLI", "MDLJ",
+        "MDLK", "MDLL", "MDLM", "MDLN", "MDLO", "MDLP",
+    ];
+    let iso_list: Vec<char> = vec![
+        '"', '(', ')', '[', '\\', ']', '~', '€', '‚', 'ƒ', '„', '…', '†', '‡', 'ˆ', '‰', 'Š', '‹',
+        'Œ', 'Ž', '‘', '’', '“', '”', '•', '–', '—', '™', 'š', '›', 'œ', 'ž', 'Ÿ', '¡', '¢', '£',
+        '¤', '¥', '¦', '§', '¨', '©', 'ª', '«', '¬', '­', '®', '¯', '°', '±', '²', '³', '´', 'µ',
+        '¶', '·', '¸', '¹', 'º', '»', '¼', '½', '¾', '¿', 'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç',
+        'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', '×', 'Ø', 'Ù',
+        'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë',
+        'ì', 'í', 'î', 'ï', 'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', '÷', 'ø', 'ù', 'ú', 'û', 'ü', 'ý',
+        'þ', 'ÿ',
+    ];
+
+    let mut code_hash = HashMap::new();
+    let mut i = 0;
+    for s in ps_codes {
+        code_hash.insert(s, iso_list[i]);
+        i += 1;
+    }
+    code_hash
 }
 
 // Writes a text file from a String of parsed values.
@@ -328,5 +363,37 @@ fn extract_data(s: &str, code_hash: &HashMap<&str, char>) -> Result<String, Box<
     match data_list.len() {
         0 => Err(From::from("Data not found")),
         _ => Ok(data_list),
+    }
+}
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn test_get_recname() {
+        let s = "EXPORT  PER_ORG_ASGN.PS_PER_ORG_ASGN";
+        let recname = extract_recname(s).unwrap();
+        assert_eq!("PER_ORG_ASGN", recname);
+    }
+
+    #[test]
+    fn test_extract_fields() {
+        let s = "EMPLID:CHAR(11)~~~EMPL_RCD:NUMBER(3)~~~PER_ORG:CHAR(3)~~~\
+        ORG_INSTANCE_ERN:NUMBER(3)~~~POI_TYPE:CHAR(5)~~~\
+        BENEFIT_RCD_NBR:NUMBER(3)~~~HOME_HOST_CLASS:CHAR(1)~~~";
+        let fields = extract_fields(s).unwrap();
+        assert_eq!("EMPLID,EMPL_RCD,PER_ORG,ORG_INSTANCE_ERN,POI_TYPE,BENEFIT_RCD_NBR,HOME_HOST_CLASS,", fields);
+    }
+
+    #[test]
+    fn test_extract_data() {
+        let code_hash = build_data_code_hash();
+        let whole_data_line = "
+        A(KUZ101),A(0),A(EMP),A(0),A( ),A(0),A(M),A(N),\
+        A(2000-12-11),A(N),A(2)A(000-12-11),A(N),A(2000-12-11),\
+        B(AA),B(AA),B(AA),B(AA),A(N),A( ),A( ),A( ),B(AA),";
+        let datarow = extract_data(&whole_data_line, &code_hash).unwrap();
+        assert_eq!("KUZ101,0,EMP,0, ,0,M,N,2000-12-11,N,2000-12-11,N,2000-12-11,,,,,N, , , ,,", &datarow);
     }
 }

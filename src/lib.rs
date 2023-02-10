@@ -9,3 +9,4 @@ pub fn get_dat_filename() -> Result<OsString, Box<dyn Error>> {
         Some(file_path) => Ok(file_path),
     }
 }
+
