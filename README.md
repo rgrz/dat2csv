@@ -1,14 +1,24 @@
 # dat2csv
 
-dat2csv is a command line utility written in Rust that takes a data file generated with Data Mover (Oracle PeopleSoft) and generates one csv per each DB table/record that the .dat file contains.
+PeopleSoft Data Mover enables you to:
+
+- Transfer application data between PeopleSoft databases.
+- Move PeopleSoft databases across operating systems and database platforms.
+- Execute Structured Query Language (SQL) statements against any PeopleSoft database, regardless of the underlying operating system or database platform.
+- Control database security and access.
+- Create, edit, and run scripts.
+
+These scripts may include any combination of SQL commands and PeopleSoft Data Mover commands for exporting and importing data.
+
+dat2csv is a command line utility written in Rust that takes a data file generated with Data Mover and generates one csv per each DB table/record that the .dat file contains. This has been tested with PeopleTools 8.5{2-8}. 
 
 The main goal of this program was to learn Rust.
 
 Usage:
 ======
-rust run <name_of_the_data_file>
+cargo run <name_of_the_data_file>
 
-e.g. rust run example.dat
+e.g. cargo run example.dat
 
 Expected output:
 ================
