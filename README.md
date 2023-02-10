@@ -37,7 +37,7 @@ A csv file for each PeopleSoft Record/DB Table in the .dat file
 
 ## PeopleTools Data Analysis:
 
-1) See in /assets/Example.dat how a data file is structured. EXPORT keyboard indicates the DB Table/Record, and lines beginning with slashes mark the different Field block and Data blocks.
+- See in /assets/Example.dat how a data file is structured. EXPORT keyboard indicates the DB Table/Record, and lines beginning with slashes mark the different Field block and Data blocks.
 
 EXPORT \<Table\>.PS_\<Table\> \<Query\>
 
@@ -75,4 +75,4 @@ Actual Data
 A(),
 Ends with comma <,>
 
-2) iso8859.dat is a generated .dat containing ps codes corresponding to utf8 special values.
+- The file /assets/iso8859.dat is a generated .dat containing ps codes corresponding to utf8 special values.
