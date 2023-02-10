@@ -43,11 +43,11 @@ A csv file for each PeopleSoft Record/DB Table in the .dat file
 
 See in /assets/Example.dat how a data file is structured. EXPORT keyboard indicates the DB Table/Record, and lines beginning with slashes mark the different Field block and Data blocks.
 
-EXPORT \<Table\>.PS_<\Table\> \<Query\>
-<query 2>
-/
+EXPORT \<Table\>.PS_\<Table\> \<Query\>
+
+\/
 B(AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA)
-/ 2
+\/ 2
 Z_FECHA_CAR:CHAR(10)~~~Z_WD_ORGANIZA_ID:CHAR(11)~~~
 Z_WD_INCLUDE_ORGAN:CHAR(1)~~~Z_WD_SUPVISOR_NAME:CHAR(70)~~~
 Z_WD_ORGANIZA_CODE:CHAR(11)~~~Z_WD_INCLUDE_CODE_:CHAR(1)~~~
@@ -59,17 +59,17 @@ Z_WD_INCLUDE_LEADE:CHAR(1)~~~Z_WD_JOB_MANAGEMEN:CHAR(1)~~~
 Z_WD_POS_MANAGEMEN:CHAR(1)~~~Z_WD_HIRING_FREEZE:CHAR(1)~~~
 Z_WD_PRI_LOCATION:CHAR(55)~~~Z_WD_REPORTS_TO:CHAR(15)~~~
 Z_WD_MAN_COD_SUP:CHAR(1)~~~
-/ 3
+\/ 3
 A(1900-01-01),A(S0085249),A(N),A(BE - ENGINEERING OFFICE),A(S0085249),A(N),
 A(Y),A(1900-01-01),A(9c875610c4fc496499e39741b6541dbc),A( ),A( ),A( ),A(O)
 A(RG_SUBTYPE_DN_BRANCH#RDOFI),A(S0009867),A(N),A(N),A(Y),A(N),A(00018)
 A(800_ESP),A(00368460),A(Y),
-// 4
+\/\/ 4
 A(1900-01-01),A(S0010037),A(N),A(BE- FINANCIAL CORE DATA),A(S0010037),A(N),
 A(Y),A(1900-01-01),A(9c875610c4fc496499e39741b6541dbc),A( ),A( ),A( ),A(O)
 A(RG_SUBTYPE_DN_BRANCH#RDOFI),A(S0002020),A(N),A(N),A(Y),A(N),A(00011)
 A(300_ESP),A(00000639),A(Y),
-//
+\/\/
 
 Fields
 1) Field and data type separated with colons <:>
@@ -79,4 +79,4 @@ Actual Data
 A(),
 Ends with comma <,>
 
-iso8859.dat is a generated .dat containing ps codes corresponding to utf8 special values.	
+iso8859.dat is a generated .dat containing ps codes corresponding to utf8 special values.
