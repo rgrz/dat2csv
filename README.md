@@ -15,17 +15,14 @@ dat2csv is a command line utility written in Rust that takes a data file generat
 The main goal of this program was to learn Rust.
 
 ## Usage:
-=========
 cargo run <name_of_the_data_file>
 
 e.g. cargo run example.dat
 
 ## Expected output:
-================
 A csv file for each PeopleSoft Record/DB Table in the .dat file
 
 ## Notes to the Program Logic:
-==========================
 - Read the dat file as String. 
 - String is a vector of bytes in UTF-8. 
 - Chars is an iterable over char representation of these bytes.
@@ -39,9 +36,8 @@ A csv file for each PeopleSoft Record/DB Table in the .dat file
 
 
 ## PeopleTools Data Analysis:
-==========================
 
-See in /assets/Example.dat how a data file is structured. EXPORT keyboard indicates the DB Table/Record, and lines beginning with slashes mark the different Field block and Data blocks.
+1) See in /assets/Example.dat how a data file is structured. EXPORT keyboard indicates the DB Table/Record, and lines beginning with slashes mark the different Field block and Data blocks.
 
 EXPORT \<Table\>.PS_\<Table\> \<Query\>
 
@@ -79,4 +75,4 @@ Actual Data
 A(),
 Ends with comma <,>
 
-iso8859.dat is a generated .dat containing ps codes corresponding to utf8 special values.
+2) iso8859.dat is a generated .dat containing ps codes corresponding to utf8 special values.
