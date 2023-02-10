@@ -14,44 +14,36 @@ dat2csv is a command line utility written in Rust that takes a data file generat
 
 The main goal of this program was to learn Rust.
 
-Usage:
-======
+## Usage:
+=========
 cargo run <name_of_the_data_file>
 
 e.g. cargo run example.dat
 
-Expected output:
+## Expected output:
 ================
 A csv file for each PeopleSoft Record/DB Table in the .dat file
 
-Notes to the Program Logic:
+## Notes to the Program Logic:
 ==========================
-Read the dat file as String. 
-String is a vector of bytes in UTF-8. 
-Chars is an iterable over char representation of these bytes.
-Find all EXPORT <table> locations. 
-Find all Fields Definition location. 
-Find Save them for later iteration. 
-Work with slices of the String for each table.
-Based on slash structure, get Field Structure, and then the data. 
-To parse each string, iterate throw chars with receipes from https://wduquette.github.io/parsing-strings-into-slices/
-Line by Line may not the best approach. Try it anyway.
+- Read the dat file as String. 
+- String is a vector of bytes in UTF-8. 
+- Chars is an iterable over char representation of these bytes.
+- Find all EXPORT <table> locations. 
+- Find all Fields Definition location. 
+- Find Save them for later iteration. 
+- Work with slices of the String for each table.
+- Based on slash structure, get Field Structure, and then the data. 
+- To parse each string, iterate throw chars with receipes from https://wduquette.github.io/parsing-strings-into-slices/
+- Line by Line may not the best approach. Try it anyway.
 
 
-PeopleTools Data Analysis:
+## PeopleTools Data Analysis:
 ==========================
-SET VERSION_DAM  8.5:1:0
-      
-SET ENDIAN LE
-SET BASE_LANGUAGE ENG
-REM Database: PENGD
-REM Started: Mon Apr 25 21:15:03 2022
 
-Find Table
-First Export are Tablespaces
-From Second EXPORT onward will be PS DB tables
+See in /assets/Example.dat how a data file is structured. EXPORT keyboard indicates the DB Table/Record, and lines beginning with slashes mark the different Field block and Data blocks.
 
-EXPORT <Tabla>.PS_<Tabla> <Query>
+EXPORT <Table>.PS_<Tabla> <Query>
 <query 2>
 /
 B(AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA)
@@ -87,26 +79,4 @@ Actual Data
 A(),
 Ends with comma <,>
 
-iso8859.dat is a generated .dat containing ps codes corresponding to utf8 special values
-ps_codes: 
-    "\"", r"\(", r"\)", "FL", "\\", "FN", "~", "OCICKM", "MCLP", "MCLP", "MCLP", "MCLP",
-    "MCLP", "MCLP", "MCLP", "MCLP", "MFKA", "MCLP", "MFJC", "MFLN", "`", "MCLP", "MCLP",
-    "MCLP", "MCLP", "MCLP", "MCLP", "MCLP", "MFKB", "MCLP", "MFJD", "MFLO", "MFLI", "MCKB",
-    "MCKC", "MCKD", "MCLP", "MCKF", "MCLP", "MCKH", "MCLP", "MCKJ", "MCKK", "MCKL", "MCKM",
-    "MCKN", "MCKO", "MCKP", "MCLA", "MCLB", "MCLC", "MCLD", "MCLP", "MCLF", "MCLG", "MCLH",
-    "MCLP", "MCLJ", "MCLK", "MCLL", "MCLP", "MCLP", "MCLP", "MCLP", "MDIA", "MDIB", "MDIC",
-    "MDID", "MDIE", "MDIF", "MDIG", "MDIH", "MDII", "MDIJ", "MDIK", "MDIL", "MDIM", "MDIN",
-    "MDIO", "MDIP", "MDJA", "MDJB", "MDJC", "MDJD", "MDJE", "MDJF", "MDJG", "MDJH", "MDJI",
-    "MDJJ", "MDJK", "MDJL", "MDJM", "MDJN", "MDJO", "MDJP", "MDKA", "MDKB", "MDKC", "MDKD",
-    "MDKE", "MDKF", "MDKG", "MDKH", "MDKI", "MDKJ", "MDKK", "MDKL", "MDKM", "MDKN", "MDKO",
-    "MDKP", "MDLA", "MDLB", "MDLC", "MDLD", "MDLE", "MDLF", "MDLG", "MDLH", "MDLI", "MDLJ",
-    "MDLK", "MDLL", "MDLM", "MDLN", "MDLO", "MDLP",
-iso_list: 
-    '"', '(', ')', '[', '\\', ']', '~', '€', '‚', 'ƒ', '„', '…', '†', '‡', 'ˆ', '‰', 'Š', '‹',
-    'Œ', 'Ž', '‘', '’', '“', '”', '•', '–', '—', '™', 'š', '›', 'œ', 'ž', 'Ÿ', '¡', '¢', '£',
-    '¤', '¥', '¦', '§', '¨', '©', 'ª', '«', '¬', '­', '®', '¯', '°', '±', '²', '³', '´', 'µ',
-    '¶', '·', '¸', '¹', 'º', '»', '¼', '½', '¾', '¿', 'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç',
-    'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', '×', 'Ø', 'Ù',
-    'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë',
-    'ì', 'í', 'î', 'ï', 'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', '÷', 'ø', 'ù', 'ú', 'û', 'ü', 'ý',
-    'þ', 'ÿ',
+iso8859.dat is a generated .dat containing ps codes corresponding to utf8 special values.
