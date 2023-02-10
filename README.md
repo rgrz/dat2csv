@@ -23,16 +23,18 @@ e.g. cargo run example.dat
 A csv file for each PeopleSoft Record/DB Table in the .dat file
 
 ## Notes to the Program Logic:
-- Read the dat file as String. 
-- String is a vector of bytes in UTF-8. 
-- Chars is an iterable over char representation of these bytes.
-- Find all EXPORT <table> locations. 
-- Find all Fields Definition location. 
-- Find Save them for later iteration. 
-- Work with slices of the String for each table.
-- Based on slash structure, get Field Structure, and then the data. 
-- To parse each string, iterate throw chars with receipes from https://wduquette.github.io/parsing-strings-into-slices/
-- Line by Line may not the best approach. Try it anyway
+| Step | Action |
+|-----:|-----------|
+|     1| Read the dat file as String.|
+|     2| String is a vector of bytes in UTF-8.    |
+|     3| Chars is an iterable over char representation of these bytes.       |
+|     4| Find all EXPORT \<table\> locations.       |
+|     5| Find all Fields Definition location.       |
+|     6| Find Save them for later iteration.        |
+|     7| Work with slices of the String for each table.       |
+|     8| Based on slash structure, get Field Structure, and then the data.       |
+|     9| To parse each string, iterate throw chars with receipes from https://wduquette.github.io/parsing-strings-into-slices/|
+|     10| Line by Line may not the best approach. Try it anyway.|
 
 ## PeopleTools Data Analysis:
 
