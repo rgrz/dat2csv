@@ -32,8 +32,7 @@ A csv file for each PeopleSoft Record/DB Table in the .dat file
 - Work with slices of the String for each table.
 - Based on slash structure, get Field Structure, and then the data. 
 - To parse each string, iterate throw chars with receipes from https://wduquette.github.io/parsing-strings-into-slices/
-- Line by Line may not the best approach. Try it anyway.
-
+- Line by Line may not the best approach. Try it anyway
 
 ## PeopleTools Data Analysis:
 
